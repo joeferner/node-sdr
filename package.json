@@ -1,0 +1,17 @@
+{
+  "author": "",
+  "name": "sdr",
+  "description": "Software Defined Radio (SDR) written in node.js",
+  "version": "0.0.1",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "~0.8.0"
+  },
+  "dependencies": {
+    "portaudio": "git://github.com/joeferner/node-portaudio.git",
+    "rtlsdr": "git://github.com/joeferner/node-rtlsdr.git"
+  },
+  "devDependencies": {}
+}
