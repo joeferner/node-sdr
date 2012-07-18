@@ -17,7 +17,7 @@ function run(callback) {
 
   portAudio.open({
     channelCount: 1,
-    sampleFormat: portAudio.SampleFormat8Bit,
+    sampleFormat: portAudio.SampleFormat16Bit,
     sampleRate: outputSampleRate
   }, audioOutputOpened);
 
@@ -44,7 +44,8 @@ function run(callback) {
       return callback(err);
     }
 
-    var decoder = new FmDecoder(99500000);
+    var freq = 99500000;
+    var decoder = new FmDecoder(freq);
     decoder.on("data", function (data) {
       pa.write(data);
     });
@@ -57,9 +58,17 @@ function run(callback) {
     device.setCenterFrequency(decoder.fm.captureFreq);
     device.start();
     pa.start();
+
+    setInterval(function() {
+      freq += 50000;
+      decoder.setFrequency(freq);
+      device.setCenterFrequency(decoder.fm.captureFreq);
+      console.log(decoder.fm.captureFreq);
+    }, 1000);
+
     setTimeout(function () {
       pa.stop();
       device.stop();
-    }, 10000);
+    }, 30000);
   }
 }
